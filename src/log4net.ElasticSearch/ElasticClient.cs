@@ -6,6 +6,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Web.Script.Serialization;
+using log4net.Util;
 
 namespace log4net.ElasticSearch
 {
@@ -107,9 +108,16 @@ namespace log4net.ElasticSearch
         private void FinishGetResponse(IAsyncResult result)
         {
             var webRequest = (WebRequest)result.AsyncState;
-            using (var httpResponse = (HttpWebResponse)webRequest.EndGetResponse(result))
+            try
             {
-                CheckResponse(httpResponse);
+                using (var httpResponse = (HttpWebResponse)webRequest.EndGetResponse(result))
+                {
+                    CheckResponse(httpResponse);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogLog.Error(GetType(), "Invalid connection to ElasticSearch", ex);
             }
         }
 
