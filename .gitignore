@@ -112,3 +112,4 @@ UpgradeLog*.XML
 # Exceptions
 #!src/packages/repositories.config
 
+.vs
