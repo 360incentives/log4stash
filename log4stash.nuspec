@@ -27,7 +27,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\..\bin\**\log4stash*.dll" target="lib"/>
-    <file src="..\..\bin\**\log4stash*.pdb" target="lib"/>
+    <file src="..\bin\**\log4stash*.dll" target="lib"/>
+    <file src="..\bin\**\log4stash*.pdb" target="lib"/>
   </files>
 </package>
