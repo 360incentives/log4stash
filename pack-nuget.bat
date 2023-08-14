@@ -5,4 +5,4 @@ rmdir /S bin
 copy LICENSE bin
 copy readme.txt bin
 
-src\.nuget\NuGet.exe pack log4stash.nuspec -Basepath bin
+src\.nuget\NuGet.exe pack log4stash.nuspec -Basepath bin -Version=$(Build.BuildNumber)
