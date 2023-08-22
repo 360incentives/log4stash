@@ -80,7 +80,7 @@ namespace log4net.ElasticSearch
         public void PutTemplateRaw(string templateName, string rawBody)
         {
             var webRequest = WebRequest.Create(string.Concat(_url, "_template/", templateName));
-            webRequest.ContentType = "text/json";
+            webRequest.ContentType = "application/json";
             webRequest.Method = "PUT";
             SetBasicAuthHeader(webRequest);
             SendRequest(webRequest, rawBody);
@@ -126,7 +126,7 @@ namespace log4net.ElasticSearch
             var requestString = PrepareBulk(bulk);
 
             var webRequest = WebRequest.Create(string.Concat(_url, "_bulk"));
-            webRequest.ContentType = "text/plain";
+            webRequest.ContentType = "application/json";
             webRequest.Method = "POST";
             webRequest.Timeout = 10000;
             SetBasicAuthHeader(webRequest);
