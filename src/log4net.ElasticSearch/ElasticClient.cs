@@ -5,8 +5,8 @@ using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using System.Web.Script.Serialization;
 using log4net.Util;
+using Newtonsoft.Json;
 
 namespace log4net.ElasticSearch
 {
@@ -22,8 +22,8 @@ namespace log4net.ElasticSearch
         void IndexBulk(IEnumerable<InnerBulkOperation> bulk);
         IAsyncResult IndexBulkAsync(IEnumerable<InnerBulkOperation> bulk);
     }
-    
-    public class InnerBulkOperation 
+
+    public class InnerBulkOperation
     {
         public string IndexName { get; set; }
         public string IndexType { get; set; }
@@ -49,7 +49,7 @@ namespace log4net.ElasticSearch
         }
 
         public WebElasticClient(string server, int port,
-                                bool ssl, bool allowSelfSignedServerCert, 
+                                bool ssl, bool allowSelfSignedServerCert,
                                 string basicAuthUsername, string basicAuthPassword)
         {
             Server = server;
@@ -98,7 +98,7 @@ namespace log4net.ElasticSearch
                 CheckResponse(httpResponse);
             }
         }
-        
+
         public IAsyncResult IndexBulkAsync(IEnumerable<InnerBulkOperation> bulk)
         {
             var webRequest = PrepareBulkAndSend(bulk);
@@ -139,12 +139,10 @@ namespace log4net.ElasticSearch
             var sb = new StringBuilder();
             foreach (var operation in bulk)
             {
-                sb.AppendFormat(
-                    @"{{ ""index"" : {{ ""_index"" : ""{0}"", ""_type"" : ""{1}""}} }}",
-                    operation.IndexName, operation.IndexType);
+                sb.AppendFormat(@"{{ ""index"" : {{ ""_index"" : ""{0}""}} }}", operation.IndexName);
                 sb.Append("\n");
 
-                string json = new JavaScriptSerializer().Serialize(operation.Document);
+                string json = JsonConvert.SerializeObject(operation.Document);
                 sb.Append(json);
 
                 sb.Append("\n");
@@ -162,7 +160,7 @@ namespace log4net.ElasticSearch
 
         private void SetBasicAuthHeader(WebRequest request)
         {
-            if (!string.IsNullOrEmpty(_credentials)) 
+            if (!string.IsNullOrEmpty(_credentials))
             {
                 request.Headers[HttpRequestHeader.Authorization] = _credentials;
             }
