@@ -139,9 +139,7 @@ namespace log4net.ElasticSearch
             var sb = new StringBuilder();
             foreach (var operation in bulk)
             {
-                sb.AppendFormat(
-                    @"{{ ""index"" : {{ ""_index"" : ""{0}"", ""_type"" : ""{1}""}} }}",
-                    operation.IndexName, operation.IndexType);
+                sb.AppendFormat(@"{{ ""index"" : {{ ""_index"" : ""{0}""}} }}", operation.IndexName);
                 sb.Append("\n");
 
                 string json = new JavaScriptSerializer().Serialize(operation.Document);
