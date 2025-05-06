@@ -104,7 +104,7 @@ namespace log4net.ElasticSearch
             WaitHandle notifyObj = new AutoResetEvent(false);
             _timer.Dispose(notifyObj);
             notifyObj.WaitOne(TimeoutToWaitForTimer);
-            _client.Dispose();
+            _client?.Dispose();
         }
 
         /// <summary>
