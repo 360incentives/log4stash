@@ -8,6 +8,9 @@ on:
 jobs:
   syncSecurityAlerts:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: "Sync security alerts to Jira issues"
         uses: reload/github-security-jira@v1.4.0
