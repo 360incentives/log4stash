@@ -13,21 +13,54 @@
     <description>
       log4stash is a log4net appender for easy logging of exceptions and messages to Elasticsearch indices.
       You can configure few filters to analyze log events before they got sended to Elasticsearch similar to the filters on logstash.
+
+      SUPPORTED TARGETS
+      net462 - actively maintained, depends on log4net 3.3.2. This is the recommended target.
+      net40 / net35 - maintenance only. These targets are pinned to log4net 2.0.15 because
+      log4net 3.x does not ship an assembly for them, so they inherit every known log4net 2.0.15
+      vulnerability (including CVE-2026-40021 / GHSA-4f7c-pmjv-c25w) and will not receive log4net
+      security fixes. Move to net462 or later to get a patched log4net.
+
+      There is no net45 assembly. Projects targeting net45 through net461 resolve the net40 build
+      and therefore also run on log4net 2.0.15.
     </description>
     <releaseNotes>
+      * Modern target net462 now depends on log4net 3.3.2
+      * The previous net45 assembly is gone; net45..net461 projects now resolve the net40 build
+      * log4net version is now declared per target framework instead of once for every target
+      * Legacy targets (net40/net35) are maintenance-only - see the description for the
+        security implications of staying on log4net 2.0.15
       * Supports properties with null value
       * Supports custom render loggingEvent - issue #6
     </releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>log logging exception elasticsearch log4net appender logstash filters</tags>
+    <!--
+      One dependency group per target framework. A single untargeted group would apply the same
+      log4net version to every lib folder, which is what previously forced 2.0.15 on all of them.
+      The legacy groups use an upper bound so they can never float onto log4net 3.x, which has no
+      net45/net40/net35 assembly.
+    -->
     <dependencies>
-      <group>
-        <dependency id="log4net" version="2.0.15.0" />
+      <group targetFramework="net462">
+        <dependency id="log4net" version="3.3.2" />
+      </group>
+      <group targetFramework="net40">
+        <dependency id="log4net" version="[2.0.15,3.0.0)" />
+      </group>
+      <group targetFramework="net35">
+        <dependency id="log4net" version="[2.0.15,3.0.0)" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\bin\**\log4stash*.dll" target="lib"/>
-    <file src="..\bin\**\log4stash*.pdb" target="lib"/>
+    <!--
+      Globbed from bin\lib so the path captured by ** is "net462\log4stash.dll" and lands in
+      lib\net462. Globbing from bin\ captured "lib\net462\..." and produced lib\lib\net462.
+    -->
+    <file src="..\bin\lib\**\log4stash*.dll" target="lib"/>
+    <file src="..\bin\lib\**\log4stash*.pdb" target="lib"/>
+    <file src="..\bin\LICENSE" target=""/>
+    <file src="..\bin\readme.txt" target=""/>
   </files>
 </package>
