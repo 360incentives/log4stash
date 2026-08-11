@@ -27,7 +27,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="..\bin\**\log4stash*.dll" target="lib"/>
-    <file src="..\bin\**\log4stash*.pdb" target="lib"/>
+    <!-- Build output is bin\lib\<tfm>\, so target="" preserves that as lib\<tfm>\ in the
+         package. Using target="lib" would nest it as lib\lib\<tfm>\ and break TFM matching. -->
+    <file src="..\bin\**\log4stash*.dll" target=""/>
+    <file src="..\bin\**\log4stash*.pdb" target=""/>
   </files>
 </package>
