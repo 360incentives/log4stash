@@ -21,8 +21,8 @@
     <copyright>Copyright 2015</copyright>
     <tags>log logging exception elasticsearch log4net appender logstash filters</tags>
     <dependencies>
-      <group>
-        <dependency id="log4net" version="2.0.15.0" />
+      <group targetFramework="net462">
+        <dependency id="log4net" version="3.3.0" />
       </group>
     </dependencies>
   </metadata>

@@ -38,7 +38,7 @@ namespace log4net.ElasticSearch.Tests.Integration
                 ExceptionString = exceptionString,
                 Level = Level.Error,
                 Message = "loggingtest",
-                TimeStamp = DateTime.Now,
+                TimeStampUtc = DateTime.UtcNow,
                 Domain = "Domain",
             };
             var loggingEvent = new LoggingEvent(eventData);
