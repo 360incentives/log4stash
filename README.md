@@ -8,11 +8,12 @@ log4stash provide few logging filters similar to the filters on [logstash](http:
 The origin of log4stash is [@jptoto](https://github.com/jptoto)'s [log4net.ElasticSearch](https://github.com/jptoto/log4net.ElasticSearch) repository.
 
 ### Features:
-* Supports .NET 3.5+
+* Supports .NET Framework 4.6.2+ (requires log4net 3.3.0+)
 * Easy installation and setup via [Nuget](https://nuget.org/packages/log4stash/)
 * Ability to analyze the log event before sending it to elasticsearch using built-in filters and custom filters similar to [logstash](http://logstash.net/docs/1.4.2/).
 
 ### Breaking Changes:
+* The minimum target framework is now .NET Framework 4.6.2, upgraded from .NET 3.5. This follows the upgrade to log4net 3.3.0, which only ships `net462` and `netstandard2.0` assemblies. The separate .NET 3.5 and .NET 4.0 builds have been dropped - if you need those frameworks, stay on a log4stash release that depends on log4net 2.x.
 * The definition of IElasticAppenderFilter has been changed, PrepareEvent has only one parameter and PrepareConfiguration's parameter type has changed to IElasticsearchClient.
 
 #### :green_book: Version 1.1.0 note:

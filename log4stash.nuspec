@@ -21,13 +21,13 @@
     <copyright>Copyright 2015</copyright>
     <tags>log logging exception elasticsearch log4net appender logstash filters</tags>
     <dependencies>
-      <group>
-        <dependency id="log4net" version="2.0.15.0" />
+      <group targetFramework="net462">
+        <dependency id="log4net" version="3.3.0" />
       </group>
     </dependencies>
   </metadata>
   <files>
-    <file src="..\bin\**\log4stash*.dll" target="lib"/>
-    <file src="..\bin\**\log4stash*.pdb" target="lib"/>
+    <file src="..\bin\lib\net462\log4stash*.dll" target="lib\net462"/>
+    <file src="..\bin\lib\net462\log4stash*.pdb" target="lib\net462"/>
   </files>
 </package>
